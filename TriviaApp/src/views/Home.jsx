@@ -1,17 +1,19 @@
-import { getQuestionByAmount } from "../services/api.service";
-import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import {getQuestionByAmount} from "../services/api.service";
+
 
 function Home() {
-    const [question, setQuestion] = useState(null);
-  
+
   async function setQuestionHandler() {
-    const question = await getQuestionByAmount(1);
-    setQuestion(question);
-    }
+    localStorage.setItem ("question", JSON.stringify(await getQuestionByAmount(1)));
+  }
+
   return (
     <>
-      <h1>Trivia GAME</h1> 
-      <button>Iniciar partida</button>
+      <h1>Trivia GAME</h1>
+      <NavLink to="/Match">
+        <button onClick={setQuestionHandler}>Iniciar partida</button>
+      </NavLink>
     </>
   );
 }
