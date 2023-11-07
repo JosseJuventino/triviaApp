@@ -1,23 +1,22 @@
-import { spread } from "axios";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
+import useQuestions from "../store/useQuestions";
 
 function Match(){
+   
+    const {questions} = useQuestions();
+    const [quest, setQuest] = useState([]);
 
-    let _LGTB = JSON.parse(localStorage.getItem ("question"));
-    const[quesNum, setquesNum] = useState(0);
-    let newArray = [_LGTB[0].results[quesNum].incorrect_answers]
-    
+    useEffect(() => {
+        setQuest(questions)
+    }, [questions]);
 
-
+    console.log(quest);
     return(
         <>
         <div>
             <h1>Match</h1>
-            <h3><div dangerouslySetInnerHTML={{__html: _LGTB[0].results[quesNum].question}} /></h3>
-
-            <button></button>
-            <button></button>
-            <button></button>
+            {quest.length == 0  ? "Cargando preguntas..." : ""}
         </div>
         </>
 
